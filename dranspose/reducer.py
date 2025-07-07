@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 import json
 import logging
 import pickle
@@ -121,7 +122,7 @@ class Reducer(DistributedService):
                 {"data": ru.model_dump_json()},
             )
             self._logger.debug("processed result %s", result)
-            self.state.processed_events += 1
+            self.state.count_processed_event()
 
     async def timer(self) -> None:
         self._logger.info("started timer task")

@@ -309,7 +309,7 @@ class Ingester(DistributedService):
                     self._logger.info("waiting for queue %d of 1000", len(empties))
                     took = []
                     empties = []
-                self.state.processed_events += 1
+                self.state.count_processed_event()
         except asyncio.exceptions.CancelledError:
             self._logger.info("stopping worker")
             for stream in self.active_streams:

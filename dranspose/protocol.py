@@ -294,7 +294,13 @@ class DistributedState(BaseModel):
     mapreduce_version: Optional[BuildGitMeta] = None
     parameters_hash: Optional[HashDigest] = None
     processed_events: int = 0
+    last_processed_an_event: Optional[datetime.datetime] = None
     event_rate: float = 0.0
+
+    def count_processed_event(self) -> None:
+        """ Register that an event has been processed """
+        self.processed_events += 1
+        self.last_processed_an_event = datetime.datetime.now()
 
     # write a h5 dump function for metadata
 
