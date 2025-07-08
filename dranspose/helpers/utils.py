@@ -11,11 +11,14 @@ from typing import Any
 from dranspose.protocol import HashDigest, WorkParameter, ParameterName
 
 
-def import_class(path: str) -> type:
+def import_class(classpath: str) -> type:
+    if not ":" in classpath:
+        raise ValueError("classpath should be a string like python.path.to.module:ClassToImport,\
+                         but '{classpath}' does not contain a :.")
     sys.path.append(os.getcwd())
-    module = importlib.import_module(path.split(":")[0])
-    custom = getattr(module, path.split(":")[1])
-    return custom
+    module_path, class_name = classpath.split(":")
+    module = importlib.import_module(module_path)
+    return getattr(module, class_name)
 
 
 def parameters_hash(parameters: dict[ParameterName, WorkParameter]) -> HashDigest:
