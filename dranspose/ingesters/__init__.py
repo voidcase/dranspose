@@ -34,3 +34,7 @@ from dranspose.ingesters.zmqsub_lecroy import (  # noqa: F401
     ZmqSubLecroyIngester,
     ZmqSubLecroySettings,
 )
+from dranspose.ingesters.test import (  # noqa: F401
+    DummyIngester,
+    DummySettings,
+)
