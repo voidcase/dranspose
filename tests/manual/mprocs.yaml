@@ -1,0 +1,19 @@
+procs:
+  controller:
+    shell: dranspose controller
+  ingester:
+    shell: dranspose ingester -c ZmqPullSingleIngester -n eiger --upstream_url "tcp://localhost:9999"
+  worker1:
+    shell: dranspose worker -c worker:TestWorker -n knatte
+  worker2:
+    shell: dranspose worker -c worker:TestWorker -n fnatte
+  worker3:
+    shell: dranspose worker -c worker:TestWorker -n tjatte
+  reducer:
+    shell: dranspose reducer -p 5001 -c examples.test.reducer:TestReducer
+  fake-eiger:
+    shell: ./tests/manual/fake_eiger.py
+    env:
+      PYTHONPATH: .
+  send-trigger-map:
+    shell: ./tests/manual/send_trigger_map.py
